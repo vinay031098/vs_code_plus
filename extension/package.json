@@ -1,0 +1,85 @@
+{
+  "name": "vs-code-plus",
+  "displayName": "VS Code Plus — Indian AI Editor",
+  "description": "AI-powered coding with Indian language voice commands via Sarvam AI",
+  "version": "0.1.0",
+  "engines": { "vscode": "^1.85.0" },
+  "categories": ["AI", "Other"],
+  "activationEvents": ["onStartupFinished"],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      { "command": "vscplus.openChat", "title": "VS Code Plus: Open AI Chat", "icon": "$(comment-discussion)" },
+      { "command": "vscplus.inlineEdit", "title": "VS Code Plus: Inline Edit (Ctrl+K)", "icon": "$(edit)" },
+      { "command": "vscplus.voiceCommand", "title": "VS Code Plus: Voice Command", "icon": "$(mic)" },
+      { "command": "vscplus.explainCode", "title": "VS Code Plus: Explain This Code" },
+      { "command": "vscplus.fixBug", "title": "VS Code Plus: Fix Bug" },
+      { "command": "vscplus.generateTests", "title": "VS Code Plus: Generate Tests" }
+    ],
+    "keybindings": [
+      { "command": "vscplus.inlineEdit", "key": "ctrl+k", "mac": "cmd+k", "when": "editorTextFocus" },
+      { "command": "vscplus.openChat", "key": "ctrl+shift+l", "mac": "cmd+shift+l" },
+      { "command": "vscplus.voiceCommand", "key": "ctrl+shift+v", "mac": "cmd+shift+v" }
+    ],
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "vscplus-sidebar",
+          "title": "VS Code Plus AI",
+          "icon": "$(hubot)"
+        }
+      ]
+    },
+    "views": {
+      "vscplus-sidebar": [
+        { "type": "webview", "id": "vscplus.chatView", "name": "AI Chat" },
+        { "type": "webview", "id": "vscplus.voiceView", "name": "Voice Commands" }
+      ]
+    },
+    "configuration": {
+      "title": "VS Code Plus",
+      "properties": {
+        "vscplus.sarvamApiKey": { "type": "string", "description": "Your Sarvam AI API Key" },
+        "vscplus.deepseekApiKey": { "type": "string", "description": "Your DeepSeek API Key" },
+        "vscplus.anthropicApiKey": { "type": "string", "description": "Your Anthropic Claude API Key" },
+        "vscplus.defaultLanguage": {
+          "type": "string",
+          "default": "hi-IN",
+          "enum": ["hi-IN","ta-IN","te-IN","kn-IN","bn-IN","mr-IN","gu-IN","ml-IN","pa-IN"],
+          "description": "Default Indian language for voice commands"
+        },
+        "vscplus.preferredModel": {
+          "type": "string",
+          "default": "auto",
+          "enum": ["auto", "deepseek-coder", "claude-3-5-sonnet", "gpt-4o"],
+          "description": "Preferred AI model (auto = smart routing)"
+        },
+        "vscplus.enableTTSReadback": {
+          "type": "boolean",
+          "default": true,
+          "description": "Read back AI responses in your language using Sarvam TTS"
+        }
+      }
+    },
+    "menus": {
+      "editor/context": [
+        { "command": "vscplus.explainCode", "group": "vscplus@1", "when": "editorHasSelection" },
+        { "command": "vscplus.fixBug", "group": "vscplus@2", "when": "editorHasSelection" },
+        { "command": "vscplus.generateTests", "group": "vscplus@3", "when": "editorHasSelection" }
+      ]
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.85.0",
+    "@types/node": "^20.0.0",
+    "typescript": "^5.3.0"
+  },
+  "dependencies": {
+    "axios": "^1.6.0"
+  }
+}
