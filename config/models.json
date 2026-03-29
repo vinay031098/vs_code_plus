@@ -1,0 +1,35 @@
+{
+  "models": {
+    "simple": {
+      "provider": "deepseek",
+      "model": "deepseek-coder",
+      "max_tokens": 1024,
+      "temperature": 0.1
+    },
+    "medium": {
+      "provider": "deepseek",
+      "model": "deepseek-chat",
+      "max_tokens": 2048,
+      "temperature": 0.2
+    },
+    "complex": {
+      "provider": "anthropic",
+      "model": "claude-3-5-sonnet-20241022",
+      "max_tokens": 8096,
+      "temperature": 0.3
+    }
+  },
+  "sarvam": {
+    "stt_model": "saaras:v3",
+    "tts_model": "bulbul:v3",
+    "supported_languages": [
+      "hi-IN", "ta-IN", "te-IN", "kn-IN",
+      "bn-IN", "mr-IN", "gu-IN", "ml-IN",
+      "pa-IN", "od-IN", "ur-IN"
+    ]
+  },
+  "cost_thresholds": {
+    "warn_user_above_usd": 0.05,
+    "block_above_usd": 0.50
+  }
+}
